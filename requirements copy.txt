@@ -1,0 +1,7 @@
+nltk==3.6.7
+numpy==1.22.1
+math==3.8
+gensim==4.1.2
+pandas==1.4.0
+matplotlib==3.5.1
+operator==3.10.2
