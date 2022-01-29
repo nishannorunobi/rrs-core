@@ -27,3 +27,6 @@ rm -rf rrsenv
 
 # Before final deployment
 pip3 freeze > requirements.txt
+
+# To run application
+python main.py

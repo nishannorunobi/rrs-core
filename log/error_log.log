@@ -1,0 +1,17 @@
+ERROR 2022-01-30 00:22:49,824 - Our First error Log Message
+ERROR 2022-01-30 00:22:54,966 - ############################ total_documents :: 964
+ERROR 2022-01-30 00:22:54,966 - ############################ total_words :: 3045
+ERROR 2022-01-30 00:22:55,787 -  document frequency df : occurence of term in total(N) documents ::              word_in_docs
+commonly             10.0
+customer            297.0
+sentence              4.0
+chock                 4.0
+continuity            4.0
+...                   ...
+statistical          22.0
+political             6.0
+pu                   10.0
+nurse                 1.0
+audit                73.0
+
+[3045 rows x 1 columns]

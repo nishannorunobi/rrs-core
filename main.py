@@ -3,16 +3,13 @@
 #### util ends
 
 import utils as utl
-#import imp
-#imp.reload(utl)
-utl.hello()
-
-
+import logger as log
 #######
 #Imports
 #All Imports
 import nltk
-nltk.download('wordnet')
+#nltk.download('wordnet')
+#need to enable above line when first time running
 from nltk.corpus import stopwords
 import gensim
 import numpy as np
@@ -46,16 +43,17 @@ resume_dict.update(jobs_dict)
 
 #######
 document_freq_dict = utl.get_document_frequency_dictionary(resume_dict)
+#log.error(f"document frequency dictionary {document_freq_dict}")
 vocabulary_list = utl.get_vocabulary_list(document_freq_dict)
 
 #######
 total_documents = total_resume + total_jobs
-print(total_documents)
+log.error(f"############################ total_documents :: {total_documents}")
 total_words = len(vocabulary_list)
-print(total_words)
+log.error(f"############################ total_words :: {total_words}")
 
 #######
-#Build Normal Bag of words
+# Build Normal Bag of words
 bow_df = pd.DataFrame(data=np.array([np.zeros(total_words)]*total_documents).T, 
                           index=vocabulary_list, 
                           columns=document_freq_dict.keys())
@@ -63,10 +61,10 @@ bow_df = pd.DataFrame(data=np.array([np.zeros(total_words)]*total_documents).T,
 for key in document_freq_dict.keys():
   words,counts = document_freq_dict.get(key)
   bow_df.loc[words,key] = counts
-#/print bow
+#log.error(f"########################## bow_df :: {bow_df}");
 
 #######
-#Build Binary Bag of words
+#Build Binary Bag of words, it just ensure if a certain word exists in a document or not
 binary_bow_df = pd.DataFrame(data=np.array([np.zeros(total_words)]*total_documents).T, 
                           index=vocabulary_list, 
                           columns=document_freq_dict.keys())
@@ -75,13 +73,14 @@ for key in document_freq_dict:
   words,counts = document_freq_dict.get(key)
   binary_bow_df.loc[words,key] = np.array(np.ones(len(counts)))
 
-#/print binary_bow
+#log.error(f"jguygjuguyfuyfuyf {binary_bow_df}")
 
 #######
 #Calculate TF matrix
 tf_matrix_df = pd.DataFrame(data=np.array([np.zeros(total_words)]*total_documents).T, 
                           index=vocabulary_list, 
                           columns=document_freq_dict.keys())
+
 for key in document_freq_dict:
   words,counts = document_freq_dict.get(key)
   tf_values = counts / counts.sum()
@@ -93,6 +92,7 @@ for key in document_freq_dict:
 idf_matrix_df = pd.DataFrame(data=binary_bow_df.sum(axis=1), 
                           index=vocabulary_list, 
                           columns=['word_in_docs'])
+log.error(f" document frequency df : occurence of term in total(N) documents :: {idf_matrix_df}")
 idf_matrix_df['pre-idf'] = total_documents/idf_matrix_df['word_in_docs']
 idf_matrix_df['idf'] = np.log(idf_matrix_df['pre-idf'])
 #/print idf_matrix
