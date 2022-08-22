@@ -9,6 +9,7 @@ nltk.download('punkt')
 import numpy as np
 import gensim
 import math
+import logger as log
 from gensim.utils import tokenize
 def remove_one_length_words(sentence):
   tokens = list(tokenize(sentence))
@@ -65,7 +66,10 @@ def get_document_tokens(doc_list):
 def get_document_frequency_dictionary(doc_dict):
   dictionary = {}
   for key in doc_dict.keys():
-    doc_text = doc_dict.get(key,'')
+    doc_text_dict = doc_dict.get(key,'')
+    doc_text = doc_text_dict.get('text','')
+    # log.error(doc_text)
+    # exit()
     doc_tokens = get_tokens(doc_text)
     token,counts = np.unique(doc_tokens,return_counts=True)
     dictionary[key] = token,counts
