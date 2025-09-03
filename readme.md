@@ -1,8 +1,14 @@
 # Install VSCODE python plugins 
 IntelliSense (Pylance), Linting, Debugging (multi-threaded, remote), Jupyter Notebooks, code formatting, refactoring, unit tests
-
 # upgrade pip version
 python -m pip install --upgrade pip
+
+# or
+python3 --version
+python3 -m ensurepip --upgrade
+
+# Ensure you have Python and venv or virtualenv installed:
+pip3 install virtualenv
 
 # Create a Virtual Environment with local version
 python -m venv rrsenv
